@@ -11,7 +11,7 @@ class Settings < Settingslogic
 end
 
 notifier = Slack::Notifier.new Settings.slack.webhook_uri do
-  defaults channel: Settings.slack.webhook_uri,
+  defaults channel: Settings.slack.channel,
            username: Settings.slack.username,
            icon_emoji: Settings.slack.icon_emoji
 end
