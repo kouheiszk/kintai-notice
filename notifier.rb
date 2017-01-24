@@ -10,12 +10,7 @@ class Settings < Settingslogic
   source "#{ROOT}/config/settings.yml"
 end
 
-notifier = Slack::Notifier.new Settings.slack.webhook_uri do
-  defaults channel: Settings.slack.channel,
-           username: Settings.slack.username,
-           icon_emoji: Settings.slack.icon_emoji
-end
-
+notifier = Slack::Notifier.new Settings.slack.webhook_uri, Settings.slack.option
 notifier.ping("@channel 先月の勤怠を入力してください\nhttps://p.secure.freee.co.jp/")
 
 # binding.pry

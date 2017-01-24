@@ -1,5 +1,6 @@
 slack:
   webhook_uri: ''
-  channel: ''
-  username: ''
-  icon_emoji: ''
+  option:
+    channel: ''
+    username: ''
+    icon_emoji: ''
