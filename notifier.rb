@@ -20,7 +20,7 @@ begin
 
   if limit_date >= today && today.business_days_until(limit_date) <= 1
     notifier = Slack::Notifier.new Settings.slack.webhook_uri, Settings.slack.option
-    notifier.ping("@channel 先月の勤怠を入力してください\nhttps://p.secure.freee.co.jp/")
+    notifier.ping("@channel 先月の勤怠を入力してください :freee:\nhttps://p.secure.freee.co.jp/")
   end
 rescue => e
   logger.fatal(e)
