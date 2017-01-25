@@ -19,8 +19,10 @@ begin
   limit_date = Date::new(today.year, today.month, 5) # 毎月5日に通知する
 
   if limit_date >= today && today.business_days_until(limit_date) <= 1
-    notifier = Slack::Notifier.new Settings.slack.webhook_uri, Settings.slack.option
-    notifier.ping("@channel 先月の勤怠を入力してください :freee:\nhttps://p.secure.freee.co.jp/")
+    notifier = Slack::Notifier.new(Settings.slack.webhook_uri, Settings.slack.option)
+    Settings.slack.messages.each do |message|
+      notifier.ping(message)
+    end
   end
 rescue => e
   logger.fatal(e)

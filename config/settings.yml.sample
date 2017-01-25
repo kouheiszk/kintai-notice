@@ -4,3 +4,6 @@ slack:
     channel: ''
     username: ''
     icon_emoji: ''
+  messages:
+    - 'MESSAGE 1'
+    - 'MESSAGE 2'
