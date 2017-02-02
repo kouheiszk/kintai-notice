@@ -17,7 +17,7 @@ logger.debug("Start")
 begin
   today = Date.today
   limit_date = Date::new(today.year, today.month, 5) # 毎月5日に通知する
-
+  limit_date = limit_date.since(limit_date.workday? ? 0.day : -1.day) while !limit_date.workday?
   if limit_date >= today && today.business_days_until(limit_date) <= 1
     notifier = Slack::Notifier.new(Settings.slack.webhook_uri, Settings.slack.option)
     Settings.slack.messages.each do |message|
