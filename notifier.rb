@@ -14,20 +14,20 @@ end
 logger = Logger.new("#{ROOT}/logs/notifer.log")
 logger.debug("Start")
 
-begin
-  today = Date.today
-  limit_date = Date::new(today.year, today.month, 5) # 毎月5日に通知する
-  limit_date = limit_date.since(limit_date.workday? ? 0.day : -1.day) while !limit_date.workday?
-  if limit_date >= today && today.business_days_until(limit_date) <= 1
-    notifier = Slack::Notifier.new(Settings.slack.webhook_uri, Settings.slack.option)
-    Settings.slack.messages.each do |message|
-      notifier.ping(message)
+today = Date.today
+Settings.slack.messages.each do |message|
+  begin
+    submit_date = Date.new(today.year, today.month, message.when.day == "*" ? today.day : message.when.day)
+    submit_date = submit_date.since(submit_date.workday? ? 0.day : -1.day).to_date while !submit_date.workday?
+    if submit_date >= today && today.business_days_until(submit_date) == 0
+      notifier = Slack::Notifier.new(message.webhook_uri, message.option)
+      notifier.ping(message.message)
     end
+  rescue => e
+    logger.fatal(e)
   end
-rescue => e
-  logger.fatal(e)
 end
 
 logger.debug("Finish")
 
-# binding.pry
+#binding.pry

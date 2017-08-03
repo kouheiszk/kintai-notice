@@ -1,9 +1,15 @@
 slack:
-  webhook_uri: ''
-  option:
-    channel: ''
-    username: ''
-    icon_emoji: ''
   messages:
-    - 'MESSAGE 1'
-    - 'MESSAGE 2'
+    - when:
+        day: 5
+      webhook_uri: ''
+      option:
+        channel: ''
+        username: ''
+        icon_emoji: ''
+      message: |
+        :spiral_calendar_pad: 10日までに以下を完了してください。
+
+        あああ
+        いいい
+        ううう
